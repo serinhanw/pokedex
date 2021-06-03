@@ -1,0 +1,12 @@
+:root {
+  --primary-color: #afe4fa;
+  --seafoam-color: #;
+  --berry-color: #;
+  --burgundy-color: #;
+  --black-color: #000;
+  --white-color: #fff;
+}
+
+body {
+    background-color: var(--primary-color);
+  }
