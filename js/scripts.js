@@ -14,7 +14,7 @@ let pokemonRepository = (function (){
   ];
 
   function add(pokemon) {
-    if (typeof pokemon === 'object') {
+    if (typeof pokemon === 'object' && 'name' in pokemon && 'height' in pokemon && 'abilities' in pokemon && 'type' in pokemon) {
     pokemonList.push(pokemon);
     }
     else  {
@@ -26,29 +26,48 @@ let pokemonRepository = (function (){
     return pokemonList;
   }
 
+  function addListItem(pokemon) {
+    let pokemonList = document.querySelector('.pokemon-list');
+    let listItem = document.createElement('li');
+    let button = document.createElement('button');
+    button.innerText = pokemon.name;
+    button.classList.add('button-class');
+    listItem.appendChild(button);
+    pokemonList.appendChild(listItem);
+    
+    // when user clicks on a Pokemon button, click event will ensue which means function inside will be called upon
+    button.addEventListener('click', function() {
+      showDetails(pokemon);
+    });
+
+  }
+
+  function showDetails(pokemon) {
+    console.log(pokemon);
+  }
+
   return {
     add: add,
     getAll: getAll,
+    addListItem: addListItem,
   };
 
 })();
 
-pokemonRepository.getAll();
+
 console.log(pokemonRepository.getAll());
 
-function pokeDes() {
-pokemonRepository.getAll().forEach(function(pokemon) {
-  document.write('<p>' + pokemon.name + ' is a ' + pokemon.type + ' type and has the following abilities: ' + pokemon.abilities + '.' + '</p>');
-});
-}
+
+
 
 pokemonRepository.add('Lillipup');
-console.log(pokemonRepository.getAll());
 pokemonRepository.add({ name: 'Lillipup', height: 1.04, abilities: ['vital spirit', ' pickup'], type: 'normal' });
 console.log(pokemonRepository.getAll());
 
+pokemonRepository.getAll().forEach(function(pokemon) {
+  pokemonRepository.addListItem(pokemon);
+});
 
-pokeDes();
 
 
-document.write('<hr>');
+// document.write('<hr>');
