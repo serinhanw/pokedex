@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #afe4fa;
+  --primary-color: #eeeeee;
   --seafoam-color: #;
   --berry-color: #;
   --burgundy-color: #;
@@ -8,5 +8,27 @@
 }
 
 body {
-    background-color: var(--primary-color);
+    background-color: var(--white-color);
+    text-align: center
+  }
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.button-class {
+  border: none;
+  display: inline-block;
+  font-size: 16px;
+  padding: 20px 60px;
+  margin: 10px 0;
+  /* -webkit-transition-duration: 0.4s; /* Safari */
+  /* transition-duration: 0.4s; */
+  /* cursor: pointer; */
+  background-color: #eeeeee;
+  color: black;
+
+
+
   }
