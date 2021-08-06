@@ -1,24 +1,14 @@
 let pokemonRepository = (function (){
 
-  let pokemonList = [
-    { name: 'Ditto', height: 1.00, abilities: ['transform', ' limber'], type: 'normal' },
-    { name: 'Raichu', height: 2.07, abilities: 'static', type: ['electric', ' psychic'] },
-    { name: 'Smoochum', height: 1.04, abilities: 'clairvoyant', type: ['ice', ' psychic'] },
-    { name: 'Jigglypuff', height: 1.08, abilities: ['competitive', ' cutecharm'], types: ['normal', ' fairy'] },
-    { name: 'Chikorita', height: 2.11, abilities: 'overgrow', type: 'grass'},
-    { name: 'Mew', height: 1.04, abilities: 'synchronize', type: 'psychic' },
-    { name: 'Celebi', height: 2.00, abilities: 'natural cure', type: ['psychic', ' grass'] },
-    { name: 'Jirachi', height: 1.00, abilities: 'serene grace', type: ['steel', ' psychic'] },
-    { name: 'Meloetta', height: 2.00, abilities: 'serene grace', types: ['normal', ' psychic'] },
-    { name: 'Meltan', height: 0.08, abilities: 'magnet pull', type: 'steel'}
-  ];
+  let pokemonList = [];
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   function add(pokemon) {
-    if (typeof pokemon === 'object' && 'name' in pokemon && 'height' in pokemon && 'abilities' in pokemon && 'type' in pokemon) {
+    if (typeof pokemon === 'object' && 'name' in pokemon) { //&& 'detailsUrl' in pokemon) { // && 'height' in pokemon && 'abilities' in pokemon && 'type' in pokemon) {
     pokemonList.push(pokemon);
     }
     else  {
-      console.log('Must include ' + Object.keys(pokemonList[0]) + '.');
+      console.log('Insufficient.');
     }
   }
 
@@ -34,7 +24,7 @@ let pokemonRepository = (function (){
     button.classList.add('button-class');
     listItem.appendChild(button);
     pokemonList.appendChild(listItem);
-    
+
     // when user clicks on a Pokemon button, click event will ensue which means function inside will be called upon
     button.addEventListener('click', function() {
       showDetails(pokemon);
@@ -43,13 +33,67 @@ let pokemonRepository = (function (){
   }
 
   function showDetails(pokemon) {
-    console.log(pokemon);
+    loadDetails(pokemon).then(function () {
+      console.log(pokemon); // or (pokemon.name, pokemon.detailsUrl)
+    });
+  }
+
+  function loadList() {
+    showLoadingMessage();
+    return fetch(apiUrl).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      // hideLoadingMessage();
+      json.results.forEach(function (item) {
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+      add(pokemon);
+      //console.log(pokemon);
+      });
+      hideLoadingMessage();
+    }).catch(function (e) {
+      console.error(e);
+    });
+  }
+
+  function loadDetails(item) {
+    showLoadingMessage();
+    let url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (details) { //details meaning all the info when 'url' is clicked
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = details.types.forEach(function(type) {
+        return type.name;
+      });
+      hideLoadingMessage();
+    }).catch(function (e) {
+      console.error(e);
+    });
+  }
+
+  function showLoadingMessage() {
+    let pokemonList = document.querySelector('.pokemon-list');
+    let loader = document.createElement('div');
+    loader.classList.add('loader');
+    pokemonList.appendChild(loader);
+  }
+
+  function hideLoadingMessage() {
+    let loader = document.querySelector('.loader');
+    loader.classList.remove('loader');
+    loader.classList.add('hide');
   }
 
   return {
     add: add,
     getAll: getAll,
     addListItem: addListItem,
+    loadList: loadList,
+    loadDetails: loadDetails
   };
 
 })();
@@ -64,9 +108,12 @@ pokemonRepository.add('Lillipup');
 pokemonRepository.add({ name: 'Lillipup', height: 1.04, abilities: ['vital spirit', ' pickup'], type: 'normal' });
 console.log(pokemonRepository.getAll());
 
-pokemonRepository.getAll().forEach(function(pokemon) {
-  pokemonRepository.addListItem(pokemon);
+pokemonRepository.loadList().then(function() {
+  pokemonRepository.getAll().forEach(function(pokemon) {
+    pokemonRepository.addListItem(pokemon);
+  });
 });
+
 
 
 

@@ -21,14 +21,40 @@ ul {
   border: none;
   display: inline-block;
   font-size: 16px;
-  padding: 20px 60px;
+  padding: 20px 0;
   margin: 10px 0;
+  min-width: 150px;
   /* -webkit-transition-duration: 0.4s; /* Safari */
   /* transition-duration: 0.4s; */
-  /* cursor: pointer; */
-  background-color: #eeeeee;
+  background-color: #fce77c;
   color: black;
 
-
-
   }
+
+.button-class:hover, .button-class:focus {
+  color: var(--white-color);
+  background-color: #c0a95c;
+  cursor: pointer;
+}
+
+.loader {
+  display: inline-block;
+  /* margin-top: 500px; */
+  border: 16px solid #fff;
+  border-radius: 50%;
+  border-top: 16px solid #e15a37;
+  border-bottom: 16px solid #e15a37;
+  width: 120px;
+  height: 120px;
+  /* -webkit-animation: spin 2s linear infinite; */
+  animation: spin 2s linear infinite;
+}
+
+.hide {
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
