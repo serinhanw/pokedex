@@ -5,14 +5,35 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="img/poke-favicomatic/favicon-32x32.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Roboto:ital,wght@0,300;0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <title>Simple JS App</title>
   </head>
 
   <body>
-    <h1>Pokedex</h1>
-    <!-- <div class="loader"></div> -->
-    <ul class="pokemon-list"></ul>
+    <div id="modal-container"></div>
+    <div id="entire-background">
+    <header>
+      <nav class="main-nav">
+        <a class="nav-homelogo" href="#"><img src="img/pokeballs.png" alt="logo" class="home-pokeballs"></a>
+      </nav>
+    </header>
+
+    <div class="searchBar-container">
+      <input id="searchBar" placeholder="Search the Pokédex">  
+      <button type="submit" id="searchBar-button"><img src="img/gotcha.png" alt="Search bar sumbit button" class="gotcha-button-logo"></button>
+    </div>
+
+    <main>
+      <!-- <div id="modal-container"></div> -->
+        <ul class="pokemon-list"></ul>
+
+    </main>
+
+    <footer class="main-footer">
+      <p>"Icon made by Roundicons Freebies from www.flaticon.com"</p>
+    </footer>
+    </div>
 
     <strong>
       <script src="js/promise-polyfill.js"></script>
