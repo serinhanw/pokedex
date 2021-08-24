@@ -11,13 +11,13 @@ The Pokedex app is very straightforward. Simply search for a Pokemon using the c
 
 
 ## Project Dependencies & Technologies
--HTML
--CSS
--JavaScript(ES2015)
--jQuery
--Bootstrap
--Prettier
--ESLint
+- HTML
+- CSS
+- JavaScript(ES2015)
+- jQuery
+- Bootstrap
+- Prettier
+- ESLint
 
 ## API used
 PokeAPI (https://pokeapi.co/)
