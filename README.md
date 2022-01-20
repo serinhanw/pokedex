@@ -1,4 +1,6 @@
-# Pokedex - a simple JS App
+# Pokedex 
+
+![Demo image of the application](https://github.com/serinhanw/pokedex/blob/main/demo/demo.gif)
 
 ## Project Description
 
